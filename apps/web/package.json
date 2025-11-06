@@ -33,7 +33,7 @@
     "@tiptap/extension-history": "^3.6.1",
     "@tiptap/extension-link": "^3.6.1",
     "@tiptap/extension-ordered-list": "^2.26.2",
-    "@tiptap/extension-placeholder": "^2.26.2",
+    "@tiptap/extension-placeholder": "^3.10.2",
     "@tiptap/extension-subscript": "^3.6.1",
     "@tiptap/extension-superscript": "^3.6.1",
     "@tiptap/extension-task-item": "^3.6.1",
