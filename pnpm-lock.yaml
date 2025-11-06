@@ -90,8 +90,8 @@ importers:
         specifier: ^3.6.1
         version: 3.6.2(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))(@tiptap/pm@2.26.2)
       '@tiptap/extension-superscript':
-        specifier: ^3.6.1
-        version: 3.6.2(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))(@tiptap/pm@2.26.2)
+        specifier: ^3.10.2
+        version: 3.10.2(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))(@tiptap/pm@2.26.2)
       '@tiptap/extension-task-item':
         specifier: ^3.6.1
         version: 3.6.2(@tiptap/extension-list@3.6.2(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))(@tiptap/pm@2.26.2))
@@ -1919,11 +1919,11 @@ packages:
       '@tiptap/core': ^3.6.2
       '@tiptap/pm': ^3.6.2
 
-  '@tiptap/extension-superscript@3.6.2':
-    resolution: {integrity: sha512-DbxTVrbX6cYSn8vSQ0kScgJ37x3EzNX6a83XO1OhByH3pH1oPqZyzBtLLNt5ocaMFQHEGawhwoGjNpzOCSoajA==}
+  '@tiptap/extension-superscript@3.10.2':
+    resolution: {integrity: sha512-7CNDNdFeWe7cIpRdbX5Ob6DHRBRdHGIvKetzSKnOILD5NEbQZcTP/9fakQhpyl3U6ezi1k752rjw7b6OwJLh7w==}
     peerDependencies:
-      '@tiptap/core': ^3.6.2
-      '@tiptap/pm': ^3.6.2
+      '@tiptap/core': ^3.10.2
+      '@tiptap/pm': ^3.10.2
 
   '@tiptap/extension-task-item@3.6.2':
     resolution: {integrity: sha512-lD4qJTRYDmj01bdRcfyuznWqsckKQk9R53fTFUu/6BflfP4LcDUmC7n2aeeX9a0uOXCgVDP6FMpreLtDgD0pjA==}
@@ -7017,7 +7017,7 @@ snapshots:
       '@tiptap/core': 2.26.2(@tiptap/pm@2.26.2)
       '@tiptap/pm': 2.26.2
 
-  '@tiptap/extension-superscript@3.6.2(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))(@tiptap/pm@2.26.2)':
+  '@tiptap/extension-superscript@3.10.2(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))(@tiptap/pm@2.26.2)':
     dependencies:
       '@tiptap/core': 2.26.2(@tiptap/pm@2.26.2)
       '@tiptap/pm': 2.26.2
