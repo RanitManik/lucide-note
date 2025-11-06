@@ -30,7 +30,7 @@
     "@tiptap/extension-code-block": "^2.26.2",
     "@tiptap/extension-heading": "^2.26.2",
     "@tiptap/extension-highlight": "^3.6.1",
-    "@tiptap/extension-history": "^3.6.1",
+    "@tiptap/extension-history": "^3.10.2",
     "@tiptap/extension-link": "^3.6.1",
     "@tiptap/extension-ordered-list": "^2.26.2",
     "@tiptap/extension-placeholder": "^2.26.2",
