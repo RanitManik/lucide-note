@@ -335,7 +335,7 @@ export const SidebarContent = React.memo(function SidebarContent({
         <p className="text-muted-foreground text-xs font-semibold">NOTES</p>
       </div>
 
-      <ScrollArea className="min-h-0 flex-1">
+      <ScrollArea type="always" className="min-h-0 flex-1">
         <nav className="space-y-1 px-2 pb-2">
           {notesError && (
             <p className="text-destructive px-2 py-1.5 text-xs">
@@ -348,7 +348,7 @@ export const SidebarContent = React.memo(function SidebarContent({
               role="button"
               tabIndex={0}
               className={cn(
-                "hover:bg-accent/70 group w-full cursor-pointer select-none rounded-md px-2 py-1.5 text-left text-sm transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2",
+                "hover:bg-accent/70 group w-full cursor-pointer select-none rounded-md px-2 py-0.5 text-left text-sm transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2",
                 selectedId === note.id && "bg-accent"
               )}
               onClick={() => onSelectNote(note.id)}
