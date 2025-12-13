@@ -34,7 +34,6 @@ import {
   Trash2,
   Plus,
   Sparkles,
-  Edit,
   UserPlus,
   Loader2,
   MoreHorizontal,
@@ -44,7 +43,12 @@ import {
   Sun,
   LogOut,
   Monitor,
+  Share2,
+  Download,
+  ExternalLink,
+  Copy as CopyIcon,
 } from "lucide-react";
+import { toast } from "sonner";
 import type { Note, Tenant, User as UserType } from "@/lib/api";
 import Image from "next/image";
 import { SearchBar } from "./search-bar";
@@ -60,7 +64,7 @@ interface SidebarContentProps {
   selectedId: string | null;
   onSelectNote: (id: string) => void;
   onCreateNote: () => void;
-  onEditNote: (note: Note) => void;
+
   onDeleteNote: (id: string) => void;
   onConfirmDelete: () => void;
   onInviteUser: () => void;
@@ -69,6 +73,8 @@ interface SidebarContentProps {
   deleteNoteId: string | null;
   setDeleteNoteId: (id: string | null) => void;
   deleteNotePending: boolean;
+  onExportNote?: (note: Note) => void;
+  onShareNote?: (note: Note) => void;
 }
 
 // --- Upgrade Banner Component ---
@@ -225,7 +231,6 @@ export const SidebarContent = React.memo(function SidebarContent({
   selectedId,
   onSelectNote,
   onCreateNote,
-  onEditNote,
   onDeleteNote,
   onConfirmDelete,
   onInviteUser,
@@ -234,6 +239,8 @@ export const SidebarContent = React.memo(function SidebarContent({
   deleteNoteId,
   setDeleteNoteId,
   deleteNotePending,
+  onExportNote,
+  onShareNote,
 }: SidebarContentProps) {
   // Show skeleton loading when either tenant or notes are loading
   const isLoading = tenantLoading || notesLoading;
@@ -378,16 +385,64 @@ export const SidebarContent = React.memo(function SidebarContent({
                       <MoreHorizontal className="h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
+                  <DropdownMenuContent
+                    align="start"
+                    side="right"
+                    className="w-64"
+                  >
+                    <DropdownMenuLabel className="text-muted-foreground font-normal">
+                      Note {note.title || "Untitled"}
+                    </DropdownMenuLabel>
+
+                    <DropdownMenuSeparator />
+
                     <DropdownMenuItem
                       onClick={e => {
                         e.stopPropagation();
-                        onEditNote(note);
+                        window.open(`/notes?note=${note.id}`, "_blank");
                       }}
                     >
-                      <Edit className="mr-2 h-4 w-4" />
-                      Edit
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      Open in new tab
                     </DropdownMenuItem>
+
+                    <DropdownMenuItem
+                      onClick={e => {
+                        e.stopPropagation();
+                        const url = `${window.location.origin}/notes?note=${note.id}`;
+                        navigator.clipboard.writeText(url);
+                        toast.success("Link copied to clipboard");
+                      }}
+                    >
+                      <CopyIcon className="mr-2 h-4 w-4" />
+                      Copy link
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    {onShareNote && (
+                      <DropdownMenuItem
+                        onClick={e => {
+                          e.stopPropagation();
+                          onShareNote(note);
+                        }}
+                      >
+                        <Share2 className="mr-2 h-4 w-4" />
+                        Share
+                      </DropdownMenuItem>
+                    )}
+                    {onExportNote && (
+                      <DropdownMenuItem
+                        onClick={e => {
+                          e.stopPropagation();
+                          onExportNote(note);
+                        }}
+                      >
+                        <Download className="mr-2 h-4 w-4" />
+                        Export
+                      </DropdownMenuItem>
+                    )}
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={e => {
                         e.stopPropagation();
@@ -398,6 +453,19 @@ export const SidebarContent = React.memo(function SidebarContent({
                       <Trash2 className="mr-2 h-4 w-4" />
                       Delete
                     </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    <div className="px-2 py-1.5">
+                      <div className="text-muted-foreground text-xs">
+                        Last edited by {note.author?.email || "Unknown"}
+                      </div>
+                      <div className="text-muted-foreground text-xs">
+                        {note.updated_at
+                          ? new Date(note.updated_at).toLocaleString()
+                          : ""}
+                      </div>
+                    </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>

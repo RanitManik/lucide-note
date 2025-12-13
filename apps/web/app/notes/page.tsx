@@ -70,6 +70,8 @@ import {
 } from "@/lib/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { NoteEditorContainer } from "@/components/note-editor-container";
+import { ExportModal } from "@/components/export-modal";
+import { ShareModal } from "@/components/share-modal";
 import {
   createNoteSchema,
   updateNoteSchema,
@@ -164,9 +166,8 @@ function NotesDashboardContent() {
   // State for delete confirmation
   const [deleteNoteId, setDeleteNoteId] = useState<string | null>(null);
 
-  // State for create/edit forms
+  // State for create forms and invite
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [showEditForm, setShowEditForm] = useState(false);
   const [showInviteForm, setShowInviteForm] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [inviteEmail, setInviteEmail] = useState("");
@@ -174,10 +175,13 @@ function NotesDashboardContent() {
   const [invitePassword, setInvitePassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [inviteError, setInviteError] = useState("");
-  const [editingNote, setEditingNote] = useState<Note | null>(null);
-  const [editTitle, setEditTitle] = useState("");
   const [createNoteError, setCreateNoteError] = useState("");
-  const [editNoteError, setEditNoteError] = useState("");
+
+  // State for export and share modals
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [exportNote, setExportNoteState] = useState<Note | null>(null);
+  const [shareNote, setShareNoteState] = useState<Note | null>(null);
 
   // Function to update a note in the local notes array
   const updateNoteInList = (noteId: string, updates: Partial<Note>) => {
@@ -366,75 +370,6 @@ function NotesDashboardContent() {
     ]
   );
 
-  const handleEditNote = useCallback((note: Note) => {
-    setEditingNote(note);
-    setEditTitle(note.title);
-    setEditNoteError("");
-    setShowEditForm(true);
-  }, []);
-
-  const handleUpdateNote = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!editingNote) return;
-
-      // Validate form data
-      const validationResult = updateNoteSchema.safeParse({
-        title: editTitle,
-        content: editingNote.content,
-      });
-
-      if (!validationResult.success) {
-        setEditNoteError(
-          validationResult.error.issues?.[0]?.message || "Validation failed"
-        );
-        return;
-      }
-
-      const validatedData = validationResult.data;
-      const noteData = {
-        title: validatedData.title,
-        content: validatedData.content,
-      };
-
-      // Close dialog and clear form immediately for optimistic UX
-      setShowEditForm(false);
-      setEditingNote(null);
-      setEditTitle("");
-      setEditNoteError("");
-
-      try {
-        await toast.promise(
-          updateNoteMutation.mutateAsync({
-            id: editingNote.id,
-            data: noteData,
-          }),
-          {
-            loading: "Updating note...",
-            success: "Note updated successfully",
-            error: "Failed to update note",
-          }
-        );
-        updateNoteInList(editingNote.id, {
-          title: editTitle,
-          updated_at: new Date().toISOString(),
-        });
-      } catch (err) {
-        //
-      }
-    },
-    [
-      editingNote,
-      editTitle,
-      updateNoteMutation,
-      setShowEditForm,
-      setEditingNote,
-      setEditTitle,
-      setEditNoteError,
-      updateNoteInList,
-    ]
-  );
-
   const handleDeleteNote = useCallback((id: string) => {
     setDeleteNoteId(id);
   }, []);
@@ -465,6 +400,48 @@ function NotesDashboardContent() {
     }
     setDeleteNoteId(null);
   }, [deleteNoteId, deleteNoteMutation, notes, searchParams, router]);
+
+  // Handler for export modal - need to fetch full note content
+  const handleExportNote = useCallback(async (note: Note) => {
+    // If we already have content, use it directly
+    if (note.content) {
+      setExportNoteState(note);
+      setShowExportModal(true);
+      return;
+    }
+
+    // Otherwise fetch the note content
+    try {
+      const response = await fetch(`/api/notes/${note.id}`);
+      if (!response.ok) throw new Error("Failed to fetch note");
+      const fullNote = await response.json();
+      setExportNoteState(fullNote);
+      setShowExportModal(true);
+    } catch (error) {
+      toast.error("Failed to load note for export");
+    }
+  }, []);
+
+  // Handler for share modal - need to fetch full note content
+  const handleShareNote = useCallback(async (note: Note) => {
+    // If we already have content, use it directly
+    if (note.content) {
+      setShareNoteState(note);
+      setShowShareModal(true);
+      return;
+    }
+
+    // Otherwise fetch the note content
+    try {
+      const response = await fetch(`/api/notes/${note.id}`);
+      if (!response.ok) throw new Error("Failed to fetch note");
+      const fullNote = await response.json();
+      setShareNoteState(fullNote);
+      setShowShareModal(true);
+    } catch (error) {
+      toast.error("Failed to load note for sharing");
+    }
+  }, []);
 
   const handleInviteUser = useCallback(
     async (e: React.FormEvent) => {
@@ -616,12 +593,6 @@ function NotesDashboardContent() {
   }, [showCreateForm]);
 
   useEffect(() => {
-    if (!showEditForm) {
-      setEditNoteError("");
-    }
-  }, [showEditForm]);
-
-  useEffect(() => {
     if (!showInviteForm) {
       setInviteError("");
     }
@@ -703,53 +674,6 @@ function NotesDashboardContent() {
                   </>
                 ) : (
                   "Create Note"
-                )}
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      {/* Edit Note Dialog */}
-      <Dialog open={showEditForm} onOpenChange={setShowEditForm}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Edit Note</DialogTitle>
-            <DialogDescription>Update your note title.</DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleUpdateNote} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="editTitle">Title</Label>
-              <Input
-                id="editTitle"
-                placeholder="Enter note title"
-                value={editTitle}
-                onChange={e => setEditTitle(e.target.value)}
-              />
-            </div>
-            {editNoteError && (
-              <Alert variant="destructive">
-                <AlertTriangle className="h-4 w-4" />
-                <AlertDescription>{editNoteError}</AlertDescription>
-              </Alert>
-            )}
-            <div className="flex justify-end space-x-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setShowEditForm(false)}
-                disabled={updateNoteMutation.isPending}
-              >
-                Cancel
-              </Button>
-              <Button type="submit" disabled={updateNoteMutation.isPending}>
-                {updateNoteMutation.isPending ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Updating...
-                  </>
-                ) : (
-                  "Update Note"
                 )}
               </Button>
             </div>
@@ -897,6 +821,33 @@ function NotesDashboardContent() {
         </Dialog>
       )}
 
+      {/* Export Modal */}
+      <ExportModal
+        open={showExportModal}
+        onOpenChange={open => {
+          setShowExportModal(open);
+          if (!open) setExportNoteState(null);
+        }}
+        note={
+          exportNote && exportNote.content
+            ? (exportNote as { id: string; title: string; content: any })
+            : null
+        }
+      />
+      {/* Share Modal */}
+      <ShareModal
+        open={showShareModal}
+        onOpenChange={open => {
+          setShowShareModal(open);
+          if (!open) setShareNoteState(null);
+        }}
+        note={
+          shareNote && shareNote.content
+            ? (shareNote as { id: string; title: string; content: any })
+            : null
+        }
+      />
+
       <div className="flex h-svh w-full overflow-hidden">
         {/* Permanent Sidebar for medium screens and up (desktops) */}
         <aside className="bg-card hidden w-72 shrink-0 flex-col border-r md:flex">
@@ -911,7 +862,6 @@ function NotesDashboardContent() {
             selectedId={selectedId}
             onSelectNote={handleSelectNote}
             onCreateNote={() => setShowCreateForm(true)}
-            onEditNote={handleEditNote}
             onDeleteNote={handleDeleteNote}
             onConfirmDelete={confirmDeleteNote}
             onInviteUser={() => setShowInviteForm(true)}
@@ -920,6 +870,8 @@ function NotesDashboardContent() {
             deleteNoteId={deleteNoteId}
             setDeleteNoteId={setDeleteNoteId}
             deleteNotePending={deleteNoteMutation.isPending}
+            onExportNote={handleExportNote}
+            onShareNote={handleShareNote}
           />
         </aside>
 
@@ -948,7 +900,6 @@ function NotesDashboardContent() {
                 selectedId={selectedId}
                 onSelectNote={handleSelectNote}
                 onCreateNote={() => setShowCreateForm(true)}
-                onEditNote={handleEditNote}
                 onDeleteNote={handleDeleteNote}
                 onConfirmDelete={confirmDeleteNote}
                 onInviteUser={() => setShowInviteForm(true)}
@@ -957,6 +908,8 @@ function NotesDashboardContent() {
                 deleteNoteId={deleteNoteId}
                 setDeleteNoteId={setDeleteNoteId}
                 deleteNotePending={deleteNoteMutation.isPending}
+                onExportNote={handleExportNote}
+                onShareNote={handleShareNote}
               />
             </SheetContent>
           </Topbar>

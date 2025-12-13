@@ -37,17 +37,33 @@ model User {
 }
 
 model Note {
-  id         String   @id @default(cuid())
-  tenant_id  String
-  author_id  String
-  title      String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  content    Json
-  author     User     @relation(fields: [author_id], references: [id], onDelete: Cascade)
-  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  id          String      @id @default(cuid())
+  tenant_id   String
+  author_id   String
+  title       String
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  content     Json
+  author      User        @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  tenant      Tenant      @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  shared_note SharedNote?
 
   @@map("notes")
+}
+
+model SharedNote {
+  id          String    @id @default(cuid())
+  note_id     String    @unique
+  token       String    @unique @default(cuid())
+  is_public   Boolean   @default(true)
+  include_css Boolean   @default(true)
+  expires_at  DateTime?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  view_count  Int       @default(0)
+  note        Note      @relation(fields: [note_id], references: [id], onDelete: Cascade)
+
+  @@map("shared_notes")
 }
 
 model Account {
