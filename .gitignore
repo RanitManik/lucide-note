@@ -36,3 +36,4 @@ npm-debug.log*
 *.pem
 
 /generated/prisma
+/apps/web/generated
