@@ -302,9 +302,6 @@ export const SidebarContent = React.memo(function SidebarContent({
         </div>
       </div>
 
-      {limitReached && user?.role === "admin" && (
-        <UpgradeBanner onUpgrade={onUpgrade} />
-      )}
       <Separator className="mb-4" />
       <div className="mb-4 px-2">
         <SearchBar onSelectNote={onSelectNote} />
@@ -409,6 +406,9 @@ export const SidebarContent = React.memo(function SidebarContent({
         </nav>
       </ScrollArea>
       {/* Sidebar footer - upgrade widget shown at the bottom of the sidebar */}
+      {limitReached && user?.role === "admin" && (
+        <UpgradeBanner onUpgrade={onUpgrade} />
+      )}
       <div className="border-t p-3">
         <UpgradeFooter
           tenant={tenant}
