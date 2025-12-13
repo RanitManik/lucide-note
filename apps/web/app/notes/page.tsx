@@ -960,7 +960,6 @@ function NotesDashboardContent() {
               />
             </SheetContent>
           </Topbar>
-          <Separator />
           <div className="min-w-0 flex-1">
             {notesLoading || tenantLoading || status === "loading" ? (
               <div className="flex h-full flex-col">

@@ -128,6 +128,18 @@ export const api = {
     if (!response.ok) handleApiError(response);
     return response.json();
   },
+
+  // Search
+  searchNotes: async (query: string): Promise<Note[]> => {
+    const response = await fetch(
+      `/api/notes/search?q=${encodeURIComponent(query)}`,
+      {
+        headers: getAuthHeaders(),
+      }
+    );
+    if (!response.ok) handleApiError(response);
+    return response.json();
+  },
 };
 
 // React Query hooks
@@ -206,5 +218,14 @@ export const useUpgradeTenant = () => {
 export const useInviteUser = () => {
   return useMutation({
     mutationFn: api.inviteUser,
+  });
+};
+
+export const useSearchNotes = (query: string) => {
+  return useQuery({
+    queryKey: ["notes", "search", query],
+    queryFn: () => api.searchNotes(query),
+    enabled: query.length > 0,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 };
