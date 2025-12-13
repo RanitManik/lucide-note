@@ -1,72 +1,55 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-    provider  = "postgresql"
-    url        = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
-}
-
-enum Plan {
-    free
-    pro
-}
-
-enum Role {
-    admin
-    member
+  provider = "postgresql"
 }
 
 model Tenant {
-    id   String @id @default(cuid())
-    slug String @unique
-    name String
-    plan Plan   @default(free)
+  id    String @id @default(cuid())
+  slug  String @unique
+  name  String
+  plan  Plan   @default(free)
+  notes Note[]
+  users User[]
 
-    users User[]
-    notes Note[]
-
-    @@map("tenants")
+  @@map("tenants")
 }
 
 model User {
-    id            String @id @default(cuid())
-    email         String @unique
-    first_name    String?
-    last_name     String?
-    password_hash String?
-    role          Role
-    tenant_id     String?
-    emailVerified DateTime?
-    image         String?
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password_hash String?
+  role          Role
+  tenant_id     String?
+  emailVerified DateTime?
+  image         String?
+  first_name    String?
+  last_name     String?
+  accounts      Account[]
+  notes         Note[]
+  sessions      Session[]
+  tenant        Tenant?   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
-    tenant Tenant? @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-    notes  Note[]
-
-    // NextAuth fields
-    accounts Account[]
-    sessions Session[]
-
-    @@map("users")
+  @@map("users")
 }
 
 model Note {
-    id         String   @id @default(cuid())
-    tenant_id  String
-    author_id  String
-    title      String
-    content    Json
-    created_at DateTime @default(now())
-    updated_at DateTime @updatedAt
+  id         String   @id @default(cuid())
+  tenant_id  String
+  author_id  String
+  title      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  content    Json
+  author     User     @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
-    tenant Tenant @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-    author User   @relation(fields: [author_id], references: [id], onDelete: Cascade)
-
-    @@map("notes")
+  @@map("notes")
 }
 
-// NextAuth.js Models
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -80,8 +63,7 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -104,4 +86,14 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+enum Plan {
+  free
+  pro
+}
+
+enum Role {
+  admin
+  member
 }

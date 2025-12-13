@@ -3,7 +3,6 @@
   "ui": "tui",
   "globalEnv": [
     "DATABASE_URL",
-    "DIRECT_URL",
     "JWT_SECRET",
     "NODE_ENV",
     "NEXTAUTH_URL",
@@ -30,6 +29,9 @@
     "db:migrate": {
       "cache": false,
       "inputs": ["prisma/migrations/**"]
+    },
+    "db:reset": {
+      "cache": false
     },
     "db:migrate:prod": {
       "cache": false,

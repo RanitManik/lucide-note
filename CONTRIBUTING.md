@@ -54,10 +54,10 @@ lucide note is a multi-tenant notes application built with Next.js, featuring ro
 
    ```bash
    cd apps/web
-   cp .env.example .env.local  # If example exists, otherwise create manually
+   cp .env.example .env  # If example exists, otherwise create manually
    ```
 
-   Add the following to `.env.local`:
+   Add the following to `.env`:
 
    ```env
    DATABASE_URL="postgresql://username:password@localhost:5432/lucide-note"

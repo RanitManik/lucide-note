@@ -4,22 +4,28 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write .",
-    "test": "turbo test",
-    "test:unit": "turbo test:unit",
-    "test:integration": "turbo test:integration",
-    "test:watch": "turbo test:watch",
+    "commit": "cz",
     "db:generate": "turbo db:generate",
     "db:migrate": "turbo db:migrate",
     "db:push": "turbo db:migrate:prod",
+    "db:reset": "turbo db:reset",
     "db:seed": "turbo db:seed",
     "db:setup": "turbo db:setup",
     "db:studio": "turbo db:studio",
-    "typecheck": "turbo typecheck",
+    "dev": "turbo dev",
+    "format": "prettier --write .",
+    "lint": "turbo lint",
     "prepare": "husky",
-    "commit": "cz"
+    "test": "turbo test",
+    "test:integration": "turbo test:integration",
+    "test:unit": "turbo test:unit",
+    "test:watch": "turbo test:watch",
+    "typecheck": "turbo typecheck"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
@@ -38,10 +44,5 @@
   "packageManager": "pnpm@10.4.1",
   "engines": {
     "node": ">=20"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
   }
 }
