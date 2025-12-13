@@ -4,11 +4,11 @@ import { jsonToHtml } from "@/lib/export-utils";
 import { notFound } from "next/navigation";
 
 interface PageProps {
-  params: { token: string };
+  params: Promise<{ token: string }>;
 }
 
 export default async function SharedNotePage({ params }: PageProps) {
-  const { token } = params;
+  const { token } = await params;
 
   const sharedNote = await prisma.sharedNote.findUnique({
     where: { token },
