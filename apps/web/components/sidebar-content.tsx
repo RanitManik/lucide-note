@@ -113,7 +113,7 @@ function UserMenu({ user, tenant, onLogout, onUpgrade }: any) {
                   width={32}
                   height={32}
                   src={user.image}
-                  alt="User avatar"
+                  alt=""
                   className="rounded-lg object-cover"
                 />
               ) : (
@@ -137,10 +137,12 @@ function UserMenu({ user, tenant, onLogout, onUpgrade }: any) {
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-lg">
               {user?.image ? (
-                <img
+                <Image
+                  width={32}
+                  height={32}
                   src={user.image}
-                  alt="User avatar"
-                  className="h-8 w-8 rounded-lg object-cover"
+                  alt=""
+                  className="rounded-lg object-cover"
                 />
               ) : (
                 <User className="h-4 w-4" />
