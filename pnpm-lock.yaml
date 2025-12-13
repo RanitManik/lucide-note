@@ -6,10 +6,6 @@ settings:
 
 importers:
   .:
-    dependencies:
-      nextjs-toploader:
-        specifier: ^3.9.17
-        version: 3.9.17(next@15.5.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
     devDependencies:
       "@commitlint/cli":
         specifier: ^20.1.0
@@ -148,7 +144,7 @@ importers:
         version: 0.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       nextjs-toploader:
         specifier: ^3.9.17
-        version: 3.9.17(next@15.5.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 3.9.17(next@15.5.9(@babel/core@7.28.5)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       prisma:
         specifier: ^7.1.0
         version: 7.1.0(@types/react@19.1.16)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
@@ -14475,7 +14471,7 @@ snapshots:
       - "@babel/core"
       - babel-plugin-macros
 
-  nextjs-toploader@3.9.17(next@15.5.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  nextjs-toploader@3.9.17(next@15.5.9(@babel/core@7.28.5)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       next: 15.5.9(@babel/core@7.28.5)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       nprogress: 0.2.0
