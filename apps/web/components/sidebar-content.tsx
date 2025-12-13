@@ -46,6 +46,7 @@ import {
   Monitor,
 } from "lucide-react";
 import type { Note, Tenant, User as UserType } from "@/lib/api";
+import Image from "next/image";
 
 interface SidebarContentProps {
   notes: Note[];
@@ -101,10 +102,12 @@ function UserMenu({ user, tenant, onLogout, onUpgrade }: any) {
           <div className="flex w-full items-center gap-2">
             <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-lg">
               {user?.image ? (
-                <img
+                <Image
+                  width={32}
+                  height={32}
                   src={user.image}
                   alt="User avatar"
-                  className="h-8 w-8 rounded-lg object-cover"
+                  className="rounded-lg object-cover"
                 />
               ) : (
                 <User className="h-4 w-4" />
