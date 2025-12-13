@@ -7,7 +7,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
+import { useSearchParams } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";

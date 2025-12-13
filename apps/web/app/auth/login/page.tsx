@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { LoginForm } from "@workspace/ui/components/login-form";
 import { signIn, useSession } from "next-auth/react";
 import { loginSchema, type LoginInput } from "@/lib/validations";
