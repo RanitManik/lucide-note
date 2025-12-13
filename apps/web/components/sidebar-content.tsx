@@ -336,7 +336,7 @@ export const SidebarContent = React.memo(function SidebarContent({
       </div>
 
       <ScrollArea type="always" className="min-h-0 flex-1">
-        <nav className="space-y-1 px-2 pb-2">
+        <nav className="space-y-1 pb-2 pl-2 pr-4">
           {notesError && (
             <p className="text-destructive px-2 py-1.5 text-xs">
               Failed to load notes
