@@ -4,9 +4,11 @@ import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
+import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import NextTopLoader from "nextjs-toploader";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +47,7 @@ function AuthRedirectHandler() {
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <SessionProvider>
+      <NextTopLoader color="#155dfb" showSpinner={false} />
       <QueryClientProvider client={queryClient}>
         <NextThemesProvider
           attribute="class"

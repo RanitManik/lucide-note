@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import Image from "next/image";
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -16,7 +15,6 @@ import {
   FileText,
   Users,
   Shield,
-  Loader2,
   Star,
   CheckCircle,
   ArrowRight,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { ForgotPasswordForm } from "@workspace/ui/components/forgot-password-form";
 import {
   forgotPasswordSchema,

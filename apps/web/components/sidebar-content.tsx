@@ -46,6 +46,8 @@ import {
   Monitor,
 } from "lucide-react";
 import type { Note, Tenant, User as UserType } from "@/lib/api";
+import Image from "next/image";
+import { SearchBar } from "./search-bar";
 
 interface SidebarContentProps {
   notes: Note[];
@@ -101,10 +103,12 @@ function UserMenu({ user, tenant, onLogout, onUpgrade }: any) {
           <div className="flex w-full items-center gap-2">
             <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-lg">
               {user?.image ? (
-                <img
+                <Image
+                  width={32}
+                  height={32}
                   src={user.image}
                   alt="User avatar"
-                  className="h-8 w-8 rounded-lg object-cover"
+                  className="rounded-lg object-cover"
                 />
               ) : (
                 <User className="h-4 w-4" />
@@ -237,37 +241,32 @@ export const SidebarContent = React.memo(function SidebarContent({
   if (isLoading) {
     return (
       <>
-        <div className="min-w-0 p-3">
+        <div className="min-w-0 px-3 py-2">
           <div className="flex items-center justify-between">
-            <div className="space-y-2">
-              <div className="flex items-center gap-3">
-                <Skeleton className="h-8 w-8" />
-                <Skeleton className="h-6 w-24" />
-              </div>
-              <Skeleton className="h-4 w-20" />
-              <Skeleton className="h-3 w-16" />
+            <div className="flex h-8 items-center gap-2">
+              <Skeleton className="h-6 w-6" />
+              <Skeleton className="h-6 w-24" />
+              <Skeleton className="h-5 w-10" />
             </div>
           </div>
         </div>
-        <Separator className="my-4" />
+        <Separator className="mb-4" />
+        <div className="mb-4 px-2">
+          <Skeleton className="h-9 w-full rounded-md" />
+        </div>
         <div className="space-y-2 px-2">
           <Skeleton className="h-8 w-full" />
           <Skeleton className="h-8 w-full" />
         </div>
         <Separator className="my-4" />
         <div className="flex-1 space-y-2 px-2">
-          <Skeleton className="h-12 w-full" />
-          <Skeleton className="h-12 w-full" />
-          <Skeleton className="h-12 w-full" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
         </div>
 
         <div className="border-t p-3">
-          <div className="flex items-center gap-3">
-            <div className="flex-1 space-y-2">
-              <Skeleton className="h-8 w-full" />
-            </div>
-            <Skeleton className="h-8 w-16" />
-          </div>
+          <Skeleton className="h-10 w-full" />
         </div>
       </>
     );
@@ -275,10 +274,10 @@ export const SidebarContent = React.memo(function SidebarContent({
 
   return (
     <>
-      <div className="min-w-0 p-3">
+      <div className="min-w-0 px-3 py-2">
         <div className="flex items-center justify-between">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex h-8 items-center gap-2">
               <img src="/logo.svg" alt="lucide note Logo" className="h-6 w-6" />
               <span className="text-lg font-semibold">lucide note</span>
               <Badge
@@ -303,10 +302,10 @@ export const SidebarContent = React.memo(function SidebarContent({
         </div>
       </div>
 
-      {limitReached && user?.role === "admin" && (
-        <UpgradeBanner onUpgrade={onUpgrade} />
-      )}
-      <Separator className="mb-4 mt-1" />
+      <Separator className="mb-4" />
+      <div className="mb-4 px-2">
+        <SearchBar onSelectNote={onSelectNote} />
+      </div>
       <div className="flex flex-col gap-2 px-2">
         <Button
           size="sm"
@@ -332,7 +331,11 @@ export const SidebarContent = React.memo(function SidebarContent({
       </div>
       <Separator className="my-4" />
 
-      <ScrollArea className="min-h-0 flex-1">
+      <div className="mb-2 px-3">
+        <p className="text-muted-foreground text-xs font-semibold">NOTES</p>
+      </div>
+
+      <ScrollArea type="always" className="min-h-0 flex-1">
         <nav className="space-y-1 px-2 pb-2">
           {notesError && (
             <p className="text-destructive px-2 py-1.5 text-xs">
@@ -345,7 +348,7 @@ export const SidebarContent = React.memo(function SidebarContent({
               role="button"
               tabIndex={0}
               className={cn(
-                "hover:bg-accent/70 group w-full cursor-pointer select-none rounded-md px-2 py-1.5 text-left text-sm transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2",
+                "hover:bg-accent/70 group w-full cursor-pointer select-none rounded-md px-2 py-0.5 text-left text-sm transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2",
                 selectedId === note.id && "bg-accent"
               )}
               onClick={() => onSelectNote(note.id)}
@@ -403,6 +406,9 @@ export const SidebarContent = React.memo(function SidebarContent({
         </nav>
       </ScrollArea>
       {/* Sidebar footer - upgrade widget shown at the bottom of the sidebar */}
+      {limitReached && user?.role === "admin" && (
+        <UpgradeBanner onUpgrade={onUpgrade} />
+      )}
       <div className="border-t p-3">
         <UpgradeFooter
           tenant={tenant}
