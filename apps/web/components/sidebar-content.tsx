@@ -393,7 +393,7 @@ export const SidebarContent = React.memo(function SidebarContent({
                     className="w-64"
                   >
                     <DropdownMenuLabel className="text-muted-foreground font-normal">
-                      Note {note.title || "Untitled"}
+                      Note <strong>{note.title || "Untitled"}</strong>
                     </DropdownMenuLabel>
 
                     <DropdownMenuSeparator />
@@ -460,7 +460,8 @@ export const SidebarContent = React.memo(function SidebarContent({
 
                     <div className="px-2 py-1.5">
                       <div className="text-muted-foreground text-xs">
-                        Last edited by {note.author?.email || "Unknown"}
+                        Last edited by{" "}
+                        <strong>{note.author?.email || "Unknown"}</strong>
                       </div>
                       <div className="text-muted-foreground text-xs">
                         {note.updated_at
