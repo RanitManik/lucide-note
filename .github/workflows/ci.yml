@@ -42,7 +42,7 @@ jobs:
 
       # NOTE: Upload the entire workspace as an artifact. This includes node_modules.
       - name: Upload workspace artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: workspace
           path: .
