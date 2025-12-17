@@ -45,7 +45,7 @@
     "@tiptap/react": "^2.26.2",
     "@tiptap/starter-kit": "^2.26.1",
     "@workspace/ui": "workspace:*",
-    "axios": "^1.12.2",
+    "axios": "^1.13.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "jsonwebtoken": "^9.0.3",
