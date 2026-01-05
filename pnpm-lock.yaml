@@ -105,8 +105,8 @@ importers:
         specifier: ^3.14.0
         version: 3.14.0(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))
       '@tiptap/extension-underline':
-        specifier: ^3.6.1
-        version: 3.6.2(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))
+        specifier: ^3.14.0
+        version: 3.14.0(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))
       '@tiptap/react':
         specifier: ^2.26.2
         version: 2.26.2(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))(@tiptap/pm@2.26.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -2159,10 +2159,10 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-underline@3.6.2':
-    resolution: {integrity: sha512-IrG6vjxTMI2EeyhZCtx0sNTEu83PsAvzIh4vxmG1fUi/RYokks+sFbgGMuq0jtO96iVNEszlpAC/vaqfxFJwew==}
+  '@tiptap/extension-underline@3.14.0':
+    resolution: {integrity: sha512-zmnWlsi2g/tMlThHby0Je9O+v24j4d+qcXF3nuzLUUaDsGCEtOyC9RzwITft59ViK+Nc2PD2W/J14rsB0j+qoQ==}
     peerDependencies:
-      '@tiptap/core': ^3.6.2
+      '@tiptap/core': ^3.14.0
 
   '@tiptap/extensions@3.6.2':
     resolution: {integrity: sha512-tg7/DgaI6SpkeawryapUtNoBxsJUMJl3+nSjTfTvsaNXed+BHzLPsvmPbzlF9ScrAbVEx8nj6CCkneECYIQ4CQ==}
@@ -7945,7 +7945,7 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.26.2(@tiptap/pm@2.26.2)
 
-  '@tiptap/extension-underline@3.6.2(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))':
+  '@tiptap/extension-underline@3.14.0(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))':
     dependencies:
       '@tiptap/core': 2.26.2(@tiptap/pm@2.26.2)
 
