@@ -79,7 +79,7 @@
     "next-test-api-route-handler": "^4.0.16",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "supertest": "^7.1.4",
+    "supertest": "^7.2.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
