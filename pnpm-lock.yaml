@@ -256,8 +256,8 @@ importers:
         specifier: ^2.9.4
         version: 2.9.4(eslint@10.2.0(jiti@2.6.1))(turbo@2.9.4)
       globals:
-        specifier: ^17.3.0
-        version: 17.3.0
+        specifier: ^17.4.0
+        version: 17.4.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -3955,8 +3955,8 @@ packages:
     resolution: {integrity: sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==}
     engines: {node: '>=8'}
 
-  globals@17.3.0:
-    resolution: {integrity: sha512-yMqGUQVVCkD4tqjOJf3TnrvaaHDMYp4VlUSObbkIiuCPe/ofdMBFIAcBbCSRFWOnos6qRiTVStDwqPLUclaxIw==}
+  globals@17.4.0:
+    resolution: {integrity: sha512-hjrNztw/VajQwOLsMNT1cbJiH2muO3OROCHnbehc8eY5JyD2gqz4AcMHPqgaOR59DjgUjYAYLeH699g/eWi2jw==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -10262,7 +10262,7 @@ snapshots:
     dependencies:
       type-fest: 0.20.2
 
-  globals@17.3.0: {}
+  globals@17.4.0: {}
 
   globalthis@1.0.4:
     dependencies:
