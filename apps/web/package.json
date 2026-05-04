@@ -73,7 +73,7 @@
     "@types/supertest": "^6.0.3",
     "@workspace/eslint-config": "workspace:^",
     "@workspace/typescript-config": "workspace:*",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.4.2",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "next-test-api-route-handler": "^4.0.16",
