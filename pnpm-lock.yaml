@@ -63,8 +63,8 @@ importers:
         specifier: ^5.100.9
         version: 5.100.9(react@19.2.7)
       '@tiptap/extension-blockquote':
-        specifier: ^3.23.4
-        version: 3.23.4(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))
+        specifier: ^3.26.0
+        version: 3.26.0(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))
       '@tiptap/extension-bullet-list':
         specifier: ^3.26.0
         version: 3.26.0
@@ -2303,10 +2303,10 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-blockquote@3.23.4':
-    resolution: {integrity: sha512-7YjSibNlPcy9eGK+tHt5G/Njr7nPxl+rZ3rCC6TwtLIRLSHPnoGDsfFOgTPkXxaQcE1a/VQwemnYfWc3kdIjDQ==}
+  '@tiptap/extension-blockquote@3.26.0':
+    resolution: {integrity: sha512-57accpka9affjiJRjP2LMNCDJDTMjTvO23RJCxtP43sp9cTIZ7YZnyDfRxCINTRBNK0X4o4w2+emOLyRwsk3CA==}
     peerDependencies:
-      '@tiptap/core': 3.23.4
+      '@tiptap/core': 3.26.0
 
   '@tiptap/extension-bold@2.26.2':
     resolution: {integrity: sha512-kNjbHZhLyDu2ZBZmJINzXg3MAW7+05KqGkcwxudC1X/DQM5V5FpW7u6TOlC+nf1I9wABgayxURyU8FsIaXDxqA==}
@@ -8056,7 +8056,7 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.26.2(@tiptap/pm@2.26.2)
 
-  '@tiptap/extension-blockquote@3.23.4(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))':
+  '@tiptap/extension-blockquote@3.26.0(@tiptap/core@2.26.2(@tiptap/pm@2.26.2))':
     dependencies:
       '@tiptap/core': 2.26.2(@tiptap/pm@2.26.2)
 
